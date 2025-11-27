@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Proper Operator Calculator</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <input type="text" id="display" class="result-box" value="0" readonly>
+    <div class="calc-grid">
+        <button class="btn ac" onclick="resetCalculator()">AC</button>
+        <button class="btn op" onclick="chooseOperator('/')">/</button>
+        <button class="btn op" onclick="chooseOperator('*')">*</button>
+        <button class="btn op" onclick="chooseOperator('-')">-</button>
+
+        <button class="btn num" onclick="pressNum('7')">7</button>
+        <button class="btn num" onclick="pressNum('8')">8</button>
+        <button class="btn num" onclick="pressNum('9')">9</button>
+        <button class="btn op" onclick="chooseOperator('+')">+</button>
+
+        <button class="btn num" onclick="pressNum('4')">4</button>
+        <button class="btn num" onclick="pressNum('5')">5</button>
+        <button class="btn num" onclick="pressNum('6')">6</button>
+        <button class="btn equal" onclick="performCalculation()">=</button>
+
+        <button class="btn num" onclick="pressNum('1')">1</button>
+        <button class="btn num" onclick="pressNum('2')">2</button>
+        <button class="btn num" onclick="pressNum('3')">3</button>
+        <button class="btn num" onclick="pressNum('0')" style="grid-column: span 2;">0</button>
+        <button class="btn num" onclick="pressDot()">.</button>
+    </div>
+</div>
+<div>
+    <div class="names">
+        <h1>Members</h1>
+        <h3>Jhon Paul Sarana</h3>
+        <h3>Jlord Yee</h3>
+        <h3>Heljun Macay</h3>
+        <h3>John Ryan Villarin</h3>
+        <h3>Owen Catulong</h3>
+    </div>
+</div>
+
+<script>
+let firstValue = null;
+let operator = "";
+let enteringSecond = false;
+
+function pressNum(n) {
+    let display = document.getElementById("display");
+    let parts = display.value.split(" ");
+    if (operator && enteringSecond) {
+        parts[2] = n;
+        enteringSecond = false;
+    } else {
+        if (operator) {
+            parts[2] = parts[2] ? parts[2] + n : n;
+        } else {
+            parts[0] = (parts[0] === "0" ? "" : parts[0]) + n;
+        }
+    }
+    display.value = parts.filter(Boolean).join(" ");
+}
+
+function pressDot() {
+    let display = document.getElementById("display");
+    let parts = display.value.split(" ");
+    if (operator) {
+        if (!parts[2]) parts[2] = "0";
+        if (!parts[2].includes(".")) parts[2] += ".";
+    } else {
+        if (!parts[0].includes(".")) parts[0] += ".";
+    }
+    display.value = parts.filter(Boolean).join(" ");
+}
+
+function chooseOperator(op) {
+    let display = document.getElementById("display");
+    let parts = display.value.split(" ");
+    if (operator && parts[2]) {
+        performCalculation();
+        parts = display.value.split(" ");
+    }
+    operator = op;
+    enteringSecond = true;
+    display.value = parts[0] + " " + op + " ";
+}
+
+function performCalculation() {
+    if (!operator) return;
+    let display = document.getElementById("display");
+    let parts = display.value.split(" ");
+    let a = parseFloat(parts[0]);
+    let b = parseFloat(parts[2]);
+    if (isNaN(b)) return;
+    let result = 0;
+    switch (operator) {
+        case "+": result = a + b; break;
+        case "-": result = a - b; break;
+        case "*": result = a * b; break;
+        case "/": result = b === 0 ? "Error" : a / b; break;
+    }
+    display.value = result;
+    firstValue = result;
+    operator = "";
+    enteringSecond = true;
+}
+
+function resetCalculator() {
+    firstValue = null;
+    operator = "";
+    enteringSecond = false;
+    document.getElementById("display").value = "0";
+}
+</script>
+
+</body>
+</html>
