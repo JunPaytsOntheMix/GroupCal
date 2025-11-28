@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; 
+        }
+
+
+        button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <form>
+        <h1>Registration Form</h1>
+
+        <label for="fname">First name:</label>
+        <input type="text" id="fname" name="fname" placeholder="Enter first name">
+        
+        <label for="lname">Last name:</label>
+        <input type="text" id="lname" name="lname" placeholder="Enter last name">
+
+        <label for="mname">Middle name:</label>
+        <input type="text" id="mname" name="mname" placeholder="Enter middle name">
+
+        <button id="submitBtn">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById("submitBtn").addEventListener("click", function(event) {
+            
+            event.preventDefault();
+            var firstName = document.getElementById("fname").value;
+            var lastName = document.getElementById("lname").value;
+
+            if (firstName.length > 0 && lastName.length > 0) {
+                alert("Registered Successfully!");
+            } else {
+                alert("Please fill in both First Name and Last Name.");
+            }
+        });
+    </script>
+
+</body>
+</html>
